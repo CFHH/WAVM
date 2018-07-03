@@ -298,7 +298,8 @@ namespace Runtime
 
 	static_assert(sizeof(ContextRuntimeData) == 4096,"");
 	static_assert(offsetof(CompartmentRuntimeData,contexts) % 4096 == 0,"CompartmentRuntimeData::contexts isn't page-aligned");
-	static_assert(offsetof(CompartmentRuntimeData,contexts[maxContexts]) == 4ull * 1024 * 1024 * 1024,"CompartmentRuntimeData isn't the expected size");
+	//static_assert(offsetof(CompartmentRuntimeData,contexts[maxContexts]) == 4ull * 1024 * 1024 * 1024,"CompartmentRuntimeData isn't the expected size");
+    static_assert(offsetof(CompartmentRuntimeData, contexts) + maxContexts * sizeof(ContextRuntimeData) == 4ull * 1024 * 1024 * 1024, "CompartmentRuntimeData isn't the expected size");
 
 	inline CompartmentRuntimeData* getCompartmentRuntimeData(ContextRuntimeData* contextRuntimeData)
 	{
